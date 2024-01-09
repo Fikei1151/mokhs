@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
+from flask_login import LoginManager, UserMixin, login_user, login_required
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
