@@ -11,6 +11,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 login_manager = LoginManager(app)
 db.init_app(app)
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 @app.route('/')
 def index():
     return render_template('index.html') 
