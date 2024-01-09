@@ -446,13 +446,13 @@ button.list-group-item-primary.active {
   color: #fff;
 }
 .menu.bg-primary .menu-item.active > .menu-link:not(.menu-toggle) {
-  background-color: #6d70ff;
+  background-color: #ef128b;
 }
 .menu.bg-primary.menu-horizontal .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle) {
-  background-color: #7174ff;
+  background-color: #ef128b;
 }
 .menu.bg-primary.menu-horizontal .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub, .menu.bg-primary.menu-horizontal .menu-inner .menu-item.open > .menu-toggle {
-  background: #6d70ff;
+  background: #ef128b;
 }
 .menu.bg-primary .menu-inner > .menu-item.menu-item-closing .menu-item.open .menu-sub,
 .menu.bg-primary .menu-inner > .menu-item.menu-item-closing .menu-item.open .menu-toggle {
@@ -460,7 +460,7 @@ button.list-group-item-primary.active {
   color: #e0e1ff;
 }
 .menu.bg-primary .menu-inner-shadow {
-  background: linear-gradient(#696cff 41%, rgba(105, 108, 255, 0.11) 95%, rgba(105, 108, 255, 0));
+  background: linear-gradient(#ef128b 41%, rgba(105, 108, 255, 0.11) 95%, rgba(105, 108, 255, 0));
 }
 .menu.bg-primary .menu-text {
   color: #fff;
@@ -487,7 +487,7 @@ button.list-group-item-primary.active {
 }
 .menu.bg-primary .menu-inner > .menu-item.open .menu-item.open > .menu-toggle::before,
 .menu.bg-primary .menu-inner > .menu-item.open .menu-item.active > .menu-link::before {
-  box-shadow: 0 0 0 2px #6d70ff;
+  box-shadow: 0 0 0 2px #ef128b;
 }
 .menu.bg-primary .ps__thumb-y,
 .menu.bg-primary .ps__rail-y.ps--clicking > .ps__thumb-y {
@@ -745,14 +745,14 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-lin
   background-color: rgba(67, 89, 113, 0.04);
 }
 .bg-menu-theme .menu-inner .menu-sub > .menu-item.active .menu-icon {
-  color: #696cff;
+  color: #ef128b;
 }
 .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
-  color: #696cff;
+  color: #ef128b;
   background-color: rgba(105, 108, 255, 0.16) !important;
 }
 .bg-menu-theme .menu-inner > .menu-item.active:before {
-  background: #696cff;
+  background: #ef128b;
 }
 .bg-menu-theme .menu-sub > .menu-item > .menu-link:before {
   background-color: #b4bdc6 !important;
