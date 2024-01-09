@@ -8,7 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-
+login_manager = LoginManager(app)
 db.init_app(app)
 
 @app.route('/')
