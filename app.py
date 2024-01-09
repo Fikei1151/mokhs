@@ -16,6 +16,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route('/')
+@login_required
 def index():
     return render_template('index.html') 
 
@@ -44,19 +45,16 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # รับข้อมูลจากฟอร์ม
         username = request.form.get('username')
         password = request.form.get('password')
-
-        # ตรวจสอบผู้ใช้ในฐานข้อมูล
         user = User.query.filter_by(username=username).first()
+
         if user and check_password_hash(user.password, password):
-            # ผู้ใช้ถูกต้อง, จัดการ session ที่นี่
+            login_user(user)
             return redirect(url_for('index'))
         else:
             return 'Invalid username or password'
     return render_template('login.html')
-
 
 if __name__ == '__main__':
     with app.app_context():
