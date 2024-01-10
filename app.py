@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user,current_user
 
 
 app = Flask(__name__)
@@ -27,24 +27,27 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        # รับข้อมูลจากฟอร์ม
         username = request.form.get('username')
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
         gender = request.form.get('gender')
         email = request.form.get('email')
         password = request.form.get('password')
+        id_card = request.form.get('id_card')  # รับข้อมูล id_card
 
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
             return 'Username already exists'
 
         hashed_password = generate_password_hash(password)
-        new_user = User(username=username, first_name=first_name, last_name=last_name, gender=gender, email=email, password=hashed_password)
+        new_user = User(username=username, first_name=first_name, last_name=last_name, gender=gender, email=email, password=hashed_password, id_card=id_card)
         db.session.add(new_user)
         db.session.commit()
 
         return redirect(url_for('login'))
     return render_template('register.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -65,6 +68,16 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
+
+
+
 if __name__ == '__main__':
     with app.app_context():
          db.create_all()
