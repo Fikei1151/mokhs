@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user,current_user
 from werkzeug.utils import secure_filename
+from PIL import Image
 import os
 
 app = Flask(__name__)
@@ -99,17 +100,19 @@ def edit_profile():
 
         file = request.files['profile_image']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            new_filename = f"{id_card}.{filename.rsplit('.', 1)[1]}"
+            # ปรับขนาดและครอปภาพที่นี่
+            image = Image.open(file)
+            image.thumbnail((200, 200))  # หรือใช้ image.resize((200, 200)) ถ้าต้องการขนาดที่แน่นอน
+            new_filename = f"{current_user.id_card}.jpg"  # บันทึกเป็น .jpg
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
-            file.save(file_path)
-            
+            image.save(file_path, format='JPEG')  # บันทึกเป็น JPEG
+
             # อัปเดตรูปภาพโปรไฟล์ในฐานข้อมูล
             current_user.profile_image = new_filename
             db.session.commit()
+
             flash('Your profile has been updated!', 'success')
             return redirect(url_for('edit_profile'))
-
     return render_template('edit_profile.html', title='Edit Profile')
 
 if __name__ == '__main__':
