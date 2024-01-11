@@ -17,7 +17,7 @@ login_manager.init_app(app)
 db.init_app(app)
 
 
-UPLOAD_FOLDER = 'assets/img/avatars'
+UPLOAD_FOLDER = 'static/userprofile'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
