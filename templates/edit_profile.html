@@ -6,8 +6,11 @@
     <div class="col-lg-8 mb-4 order-0">
       <div class="card">
         <div class="card-body">
-          <form action="{{ url_for('edit_profile') }}" method="POST" enctype="multipart/form-data">
-            <!-- Assume form.hidden_tag() is included if CSRF protection is enabled -->
+            <a href="{{ url_for('profile') }}" class="btn btn-secondary">Cancel</a>
+
+            <form action="{{ url_for('edit_profile') }}" method="POST" enctype="multipart/form-data">
+            <!-- CSRF token for security -->
+            {{ form.hidden_tag() }}
             <div class="mb-3">
               <label for="first_name" class="form-label">First Name</label>
               <input type="text" class="form-control" id="first_name" name="first_name" value="{{ current_user.first_name }}" required>
@@ -26,13 +29,31 @@
             </div>
             <div class="mb-3">
               <label for="profile_image" class="form-label">Profile Image</label>
-              <input type="file" class="form-control" id="profile_image" name="profile_image">
+              <img id="profileImagePreview" src="#" alt="Profile Image Preview" style="width: 200px; height: 200px;">
+              <input type="file" class="form-control" id="profile_image" name="profile_image" onchange="readURL(this);">
             </div>
             <button type="submit" class="btn btn-primary">Update Profile</button>
           </form>
         </div>
+
+
       </div>
     </div>
   </div>
 </div>
+<script>
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImagePreview').src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+document.getElementById('profile_image').addEventListener('change', function() {
+    readURL(this);
+});
+
+</script>
 {% endblock %}
