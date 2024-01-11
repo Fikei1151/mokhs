@@ -2,36 +2,31 @@
 
 {% block content %}
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="row justify-content-center">
-    <div class="col-lg-8 mb-4 order-0">
-      <div class="card">
-        <div class="card-body">
-          <div class="row align-items-center">
-            <!-- ส่วนของรูปโปรไฟล์ -->
-          
-
-            <!-- ส่วนของข้อมูลโปรไฟล์ -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="row g-0">
+            <!-- ส่วนข้อมูลส่วนตัวของผู้ใช้ -->
             <div class="col-md-8">
-              <h5 class="card-title text-primary">{{ current_user.first_name }} {{ current_user.last_name }} 👤</h5>
-              {% if current_user.id_card %}
-                <p>ID: <span class="fw-bold">{{ current_user.id_card }}</span></p>
-              {% endif %}
-              <p>Email: <span class="fw-bold">{{ current_user.email }}</span></p>
-              <!-- สามารถเพิ่มข้อมูลอื่นๆ ตามต้องการ -->
-
-              <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-            </div>
-            <div class="col-md-4 text-center mb-3 mb-md-0">
-                {% if current_user.profile_image %}
-                  <img src="{{ url_for('static', filename=current_user.profile_image) }}" alt="Profile Picture" class="img-fluid" style="max-width: 200px; height: auto;">
-                {% else %}
-                  <img src="{{ url_for('static', filename='path_to_default_image.jpg') }}" alt="Default Image" class="img-fluid" style="max-width: 200px; height: auto;">
+              <div class="card-body">
+                <h5 class="card-title ">{{ current_user.first_name }} {{ current_user.last_name }} 🎉</h5>
+                {% if current_user.id_card %}
+                <p class="card-text">ID: <span class="fw-bold">{{ current_user.id_card }}</span></p>
                 {% endif %}
+                <p class="card-text">อีเมล: <span class="fw-bold">{{ current_user.email }}</span></p>
+                <p class="card-text">เพศ: <span class="fw-bold">{{ current_user.gender }}</span></p>
+                <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">Edit Profile</a>
+                <!-- เพิ่มเนื้อหาอื่นๆ ที่นี่ -->
               </div>
+            </div>
+            <!-- ส่วนรูปภาพโปรไฟล์ -->
+            <div class="col-md-4">
+              <img src="{{ url_for('static', filename=current_user.profile_image if current_user.profile_image else 'path_to_default_image.jpg') }}" alt="Profile Picture" class="img-fluid rounded-start" style="height: 100%; object-fit: cover;">
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  
 {% endblock %}

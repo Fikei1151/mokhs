@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user,current_user
-
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
@@ -14,6 +15,16 @@ login_manager.login_view = 'login'  # ชื่อของ function สำห�
 login_manager.init_app(app)
 
 db.init_app(app)
+
+
+UPLOAD_FOLDER = 'assets/img/avatars'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -76,7 +87,30 @@ def logout():
 def profile():
     return render_template('profile.html', user=current_user)
 
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        id_card = request.form['id_card']
+        email = request.form['email']
+        # อัปเดตข้อมูลผู้ใช้ที่นี่
 
+        file = request.files['profile_image']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            new_filename = f"{id_card}.{filename.rsplit('.', 1)[1]}"
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
+            file.save(file_path)
+            
+            # อัปเดตรูปภาพโปรไฟล์ในฐานข้อมูล
+            current_user.profile_image = new_filename
+            db.session.commit()
+            flash('Your profile has been updated!', 'success')
+            return redirect(url_for('edit_profile'))
+
+    return render_template('edit_profile.html', title='Edit Profile')
 
 if __name__ == '__main__':
     with app.app_context():
