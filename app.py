@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'  # ชื่อของ function สำหรับหน้าล็อกอิน
+login_manager.login_view = 'login'  
 login_manager.init_app(app)
 
 db.init_app(app)
@@ -48,13 +48,13 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         id_card = request.form.get('id_card')  # รับข้อมูล id_card
-
+        account_type = request.form.get('account_type')
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
             return 'Username already exists'
 
         hashed_password = generate_password_hash(password)
-        new_user = User(username=username, first_name=first_name, last_name=last_name, gender=gender, email=email, password=hashed_password, id_card=id_card)
+        new_user = User(username=username, first_name=first_name, last_name=last_name, gender=gender, email=email, password=hashed_password, id_card=id_card,account_type=account_type)
         db.session.add(new_user)
         db.session.commit()
 

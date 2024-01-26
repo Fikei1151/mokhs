@@ -1,1 +1,1 @@
-/img/avatars
+register
