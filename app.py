@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
-from models import db, User
+from models import db, User,Classroom
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user,current_user
@@ -116,6 +116,27 @@ def edit_profile():
             return redirect(url_for('profile'))
 
     return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+@app.route('/classrooms')
+def classrooms():
+    all_classrooms = Classroom.query.all()
+    return render_template('classrooms.html', classrooms=all_classrooms)
+
+@app.route('/create_classroom', methods=['GET', 'POST'])
+def create_classroom():
+    if request.method == 'POST':
+        # Extract form data
+        classroom_name = request.form.get('classroom_name')
+        year = request.form.get('year')
+        
+        # Create new Classroom object
+        new_classroom = Classroom(name=classroom_name, year=year)
+        db.session.add(new_classroom)
+        db.session.commit()
+
+        return redirect(url_for('classrooms'))
+    
+    return render_template('create_classroom.html')
 
 if __name__ == '__main__':
     with app.app_context():

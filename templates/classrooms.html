@@ -1,0 +1,13 @@
+<!-- Extend your base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Classrooms</h2>
+<ul>
+  {% for classroom in classrooms %}
+  <li>{{ classroom.name }} - {{ classroom.year }}</li>
+  {% endfor %}
+</ul>
+
+<a href="{{ url_for('create_classroom') }}">Create a New Classroom</a>
+{% endblock %}
