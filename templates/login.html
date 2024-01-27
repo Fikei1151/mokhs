@@ -63,7 +63,37 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
-  
+    <style>
+      .authentication-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+      }
+
+      .authentication-inner {
+          max-width: 400px;
+          width: 100%;
+          margin: auto;
+      }
+
+      .card {
+          border: 1px solid #e0e0e0;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .app-brand {
+          margin-bottom: 20px;
+      }
+
+      .form-control {
+          border-radius: 0.375rem;
+      }
+
+      .btn-primary {
+          border-radius: 0.375rem;
+      }
+  </style>
   </head>
 
 
