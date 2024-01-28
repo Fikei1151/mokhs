@@ -8,8 +8,9 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from forms import EditProfileForm
 import os
-
+from classroom_routes import classroom_bp
 app = Flask(__name__)
+app.register_blueprint(classroom_bp)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 login_manager = LoginManager(app)
