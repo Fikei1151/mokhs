@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import  render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
-from models import db,Classroom,Student,Subject
+from models import db,Classroom,Student,Subject,User
 
 from flask_login import LoginManager, login_required
 
@@ -55,10 +55,29 @@ def delete_classroom(classroom_id):
     db.session.commit()
     flash('Classroom deleted successfully', 'success')
     return redirect(url_for('classroom_bp.classrooms'))
+
 @classroom_bp.route('/classroom_details/<int:classroom_id>')
 @login_required
 def classroom_details(classroom_id):
     classroom = Classroom.query.get_or_404(classroom_id)
-    students = Student.query.filter_by(classroom_id=classroom_id).all()
+    students = db.session.query(User).join(Student, Student.user_id == User.id).filter(Student.classroom_id == classroom_id).all()
     subjects = Subject.query.filter_by(classroom_id=classroom_id).all()
     return render_template('classroom_details.html', classroom=classroom, students=students, subjects=subjects)
+
+@classroom_bp.route('/classroom/<int:classroom_id>/add_student')
+@login_required
+def add_student(classroom_id):
+    classroom = Classroom.query.get_or_404(classroom_id)
+    students_without_classroom = db.session.query(User).outerjoin(Student, Student.user_id == User.id).filter(User.account_type == 'student', Student.user_id.is_(None)).all()
+    return render_template('add_student.html', classroom_id=classroom_id, classroom=classroom, students=students_without_classroom)
+
+
+@classroom_bp.route('/classroom/<int:classroom_id>/add_student_to_classroom/<int:user_id>', methods=['POST'])
+@login_required
+def add_student_to_classroom(classroom_id, user_id):
+
+    new_student = Student(user_id=user_id, classroom_id=classroom_id)
+    db.session.add(new_student)
+    db.session.commit()
+    flash('Student added successfully', 'success')
+    return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))

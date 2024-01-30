@@ -5,19 +5,46 @@
     <h2>Classroom Details: {{ classroom.name }}</h2>
     <p><strong>Year:</strong> {{ classroom.year }}</p>
     <p><strong>Details:</strong> {{ classroom.details }}</p>
-    <h3>Students</h3>
-    <ul>
-    {% for student in students %}
-        <li>{{ student.name }}</li>
-    {% endfor %}
-    </ul>
-   
+    
+    <h3>Students in this Classroom</h3>
+    <a href="{{ url_for('classroom_bp.add_student', classroom_id=classroom.id) }}" class="btn btn-success mb-3">
+        Add Student
+    </a>
+    
+    <!-- Table to display students -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ชื่อ</th>
+                <th>นามสกุล</th>
+                <th>เลขประจำตัว</th>
+                <!-- Add more headers if needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.first_name }} </td>
+                <td>{{ student.last_name }}</td>
+                <td>{{ student.id_card }}</td>
+                <!-- Add more data columns if needed -->
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No students added yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
     <h3>Subjects</h3>
+    <!-- List of subjects, etc. -->
     <ul>
     {% for subject in subjects %}
         <li>{{ subject.name }}</li>
     {% endfor %}
     </ul>
+    
     <a href="{{ url_for('classroom_bp.classrooms') }}" class="btn btn-secondary">Back to Classrooms</a>
 </div>
 {% endblock %}

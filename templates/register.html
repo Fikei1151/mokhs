@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
 
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style customizer-hide"
@@ -27,7 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Register Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>mokh</title>
 
     <meta name="description" content="" />
 
@@ -124,24 +113,40 @@
 
               <form id="formAuthentication" class="mb-3" action="{{ url_for('register') }}" method="POST">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus />
-                </div>
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control {% if username_error %}is-invalid{% endif %}" id="username" name="username" placeholder="Enter your username" value="{{ request.form.username }}">
+                  {% if username_error %}
+                      <div class="invalid-feedback">
+                          {{ username_error }}
+                      </div>
+                  {% endif %}
+              </div>
                 <label for="first_name" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" />
-              </div>
+   
               <div class="mb-3">
                 <label for="last_name" class="form-label">Last Name</label>
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" />
               </div>
               <div class="mb-3">
                 <label for="id_card" class="form-label">ID Card Number</label>
-                <input type="text" class="form-control" id="id_card" name="id_card" placeholder="Enter your ID card number" />
-              </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-                </div>
+                <input type="text" class="form-control {% if id_card_error %}is-invalid{% endif %}" id="id_card" name="id_card" placeholder="Enter your ID card number" value="{{ request.form.id_card }}">
+                {% if id_card_error %}
+                    <div class="invalid-feedback">
+                        {{ id_card_error }}
+                    </div>
+                {% endif %}
+            </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control {% if email_error %}is-invalid{% endif %}" id="email" name="email" placeholder="Enter your email" value="{{ request.form.email }}">
+                {% if email_error %}
+                    <div class="invalid-feedback">
+                        {{ email_error }}
+                    </div>
+                {% endif %}
+            </div>
+            
                 <div class="mb-3">
                   <label for="account_type" class="form-label">Account Type</label>
                   <select class="form-control" id="account_type" name="account_type">
@@ -156,12 +161,7 @@
                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                        <label class="form-check-label" for="terms-conditions">I agree to <a href="#">privacy policy & terms</a></label>
-                    </div>
-                </div>
+             
                 <button class="btn btn-primary d-grid w-100" type="submit">Sign up</button>
             </form>
             

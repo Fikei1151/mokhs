@@ -56,7 +56,20 @@ def register():
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
             return 'Username already exists'
+        user_by_username = User.query.filter_by(username=username).first()
+        user_by_email = User.query.filter_by(email=email).first()
+        user_by_id_card = User.query.filter_by(id_card=id_card).first()
 
+
+        if user_by_username:
+            flash('Username already exists', 'danger')
+            return render_template('register.html')
+        if user_by_email:
+            flash('Email already in use', 'danger')
+            return render_template('register.html')
+        if user_by_id_card:
+            flash('ID card number already registered', 'danger')
+            return render_template('register.html')
         hashed_password = generate_password_hash(password)
         new_user = User(username=username, first_name=first_name, last_name=last_name, gender=gender, email=email, password=hashed_password, id_card=id_card,account_type=account_type)
         db.session.add(new_user)

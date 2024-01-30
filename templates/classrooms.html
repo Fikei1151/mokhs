@@ -24,7 +24,7 @@
         <td><a href="{{ url_for('classroom_bp.classroom_details', classroom_id=classroom.id) }}" class="classroom-name-link" style="color: darkslategray;">{{ classroom.name }}</a></td>
         <td>{{ classroom.year }}</td>
         <td>
-          <!-- Add more actions as needed -->
+       
           <a href="/edit_classroom/{{ classroom.id }}" class="btn btn-primary btn-sm">Edit</a>
         </td>
       </tr>
@@ -32,7 +32,7 @@
     </tbody>
   </table>
   
-  <!-- Button to create new classroom -->
+
   <a href="{{ url_for('classroom_bp.create_classroom') }}" class="btn btn-success btn-lg">
     <i class="bi bi-plus-lg"></i> Add New Classroom
   </a>
