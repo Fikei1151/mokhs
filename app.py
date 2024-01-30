@@ -9,6 +9,9 @@ from PIL import Image
 from forms import EditProfileForm
 import os
 from classroom_routes import classroom_bp
+from flask_migrate import Migrate
+
+
 app = Flask(__name__)
 app.register_blueprint(classroom_bp)
 app.config['SECRET_KEY'] = 'your-secret-key'
@@ -19,7 +22,7 @@ login_manager.init_app(app)
 
 db.init_app(app)
 
-
+migrate = Migrate(app, db)     
 UPLOAD_FOLDER = 'static/userprofile'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -118,29 +121,11 @@ def edit_profile():
 
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
-@app.route('/classrooms')
-def classrooms():
-    all_classrooms = Classroom.query.all()
-    return render_template('classrooms.html', classrooms=all_classrooms)
 
-@app.route('/create_classroom', methods=['GET', 'POST'])
-def create_classroom():
-    if request.method == 'POST':
-        # Extract form data
-        classroom_name = request.form.get('classroom_name')
-        year = request.form.get('year')
-        
-        # Create new Classroom object
-        new_classroom = Classroom(name=classroom_name, year=year)
-        db.session.add(new_classroom)
-        db.session.commit()
-
-        return redirect(url_for('classrooms'))
-    
-    return render_template('create_classroom.html')
 
 if __name__ == '__main__':
     with app.app_context():
          db.create_all()
+
 
     app.run(debug=True,port=8000)

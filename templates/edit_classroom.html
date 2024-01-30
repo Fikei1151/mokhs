@@ -14,6 +14,11 @@
                     <label for="year" class="form-label">Year</label>
                     <input type="text" class="form-control" id="year" name="year" value="{{ classroom.year }}" required>
                 </div>
+                <!-- Added details input field -->
+                <div class="mb-3">
+                    <label for="details" class="form-label">Details</label>
+                    <input type="text" class="form-control" id="details" name="details" value="{{ classroom.details }}" required>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
             <form action="{{ url_for('classroom_bp.delete_classroom', classroom_id=classroom.id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this classroom?');" class="mt-3">

@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <h2 class="mb-4 text-center">Create a New Classroom</h2>
-      <form method="POST" action="{{ url_for('create_classroom') }}" class="border p-4 shadow-sm">
+      <form method="POST" action="{{ url_for('classroom_bp.create_classroom') }}" class="border p-4 shadow-sm">
         <div class="mb-3">
           <label for="classroom_name" class="form-label">Classroom Name:</label>
           <input type="text" id="classroom_name" name="classroom_name" class="form-control" required>

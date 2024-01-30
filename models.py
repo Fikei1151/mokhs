@@ -23,6 +23,7 @@ class Classroom(db.Model):
     year = db.Column(db.String(20))
     subjects = db.relationship('Subject', backref='classroom', lazy=True)
     students = db.relationship('Student', backref='classroom', lazy=True)
+    details = db.Column(db.String(250))
 
 
 class Student(db.Model):
@@ -36,5 +37,4 @@ class Subject(db.Model):
     credit_units = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=True)
     classroom_id = db.Column(db.Integer, db.ForeignKey('classroom.id'), nullable=False)
-    # เพิ่ม fields อื่นๆ ที่ต้องการ
-   
+  
