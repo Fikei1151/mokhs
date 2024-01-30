@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Classroom Details: {{ classroom.name }}</h2>
+    <p><strong>Year:</strong> {{ classroom.year }}</p>
+    <p><strong>Details:</strong> {{ classroom.details }}</p>
+    <h3>Students</h3>
+    <ul>
+    {% for student in students %}
+        <li>{{ student.name }}</li>
+    {% endfor %}
+    </ul>
+   
+    <h3>Subjects</h3>
+    <ul>
+    {% for subject in subjects %}
+        <li>{{ subject.name }}</li>
+    {% endfor %}
+    </ul>
+    <a href="{{ url_for('classroom_bp.classrooms') }}" class="btn btn-secondary">Back to Classrooms</a>
+</div>
+{% endblock %}

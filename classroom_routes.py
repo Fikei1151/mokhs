@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import  render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
-from models import db,Classroom
+from models import db,Classroom,Student,Subject
 
 from flask_login import LoginManager, login_required
 
@@ -19,11 +19,9 @@ def classrooms():
 @login_required
 def create_classroom():
     if request.method == 'POST':
-        # Extract form data
+   
         classroom_name = request.form.get('classroom_name')
         year = request.form.get('year')
-        
-        # Create new Classroom object
         new_classroom = Classroom(name=classroom_name, year=year)
         db.session.add(new_classroom)
         db.session.commit()
@@ -57,3 +55,10 @@ def delete_classroom(classroom_id):
     db.session.commit()
     flash('Classroom deleted successfully', 'success')
     return redirect(url_for('classroom_bp.classrooms'))
+@classroom_bp.route('/classroom_details/<int:classroom_id>')
+@login_required
+def classroom_details(classroom_id):
+    classroom = Classroom.query.get_or_404(classroom_id)
+    students = Student.query.filter_by(classroom_id=classroom_id).all()
+    subjects = Subject.query.filter_by(classroom_id=classroom_id).all()
+    return render_template('classroom_details.html', classroom=classroom, students=students, subjects=subjects)
