@@ -81,3 +81,15 @@ def add_student_to_classroom(classroom_id, user_id):
     db.session.commit()
     flash('Student added successfully', 'success')
     return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
+
+@classroom_bp.route('/classroom/<int:classroom_id>/remove_student/<int:student_id>', methods=['POST'])
+@login_required
+def remove_student(classroom_id, student_id):
+    student_to_remove = Student.query.filter_by(user_id=student_id, classroom_id=classroom_id).first()
+    if student_to_remove:
+        db.session.delete(student_to_remove)
+        db.session.commit()
+        flash('Student removed successfully', 'success')
+    else:
+        flash('Student not found in this classroom', 'danger')
+    return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
