@@ -44,12 +44,40 @@
     </table>
     
     <h3>Subjects</h3>
-    <!-- List of subjects, etc. -->
-    <ul>
-    {% for subject in subjects %}
-        <li>{{ subject.name }}</li>
-    {% endfor %}
-    </ul>
+    <a href="{{ url_for('classroom_bp.add_subject', classroom_id=classroom.id) }}" class="btn btn-info mb-3">Add Subject</a>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>วิชา</th>
+                    <th>หน่วยกิต</th>
+                    <th>Actions</th>
+                    <!-- Add more headers if needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td>{{ subject.name  }} </td>
+                    <td>{{ subject.credit_units }}</td>
+                    <td>
+                        <form action="{{ url_for('classroom_bp.remove_subject', classroom_id=classroom.id, subject_id=subject.id) }}" method="post">
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                        
+                    </td>
+       
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2">ไม่มีรายวิชาในห้องเรียน</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+  
     
     <a href="{{ url_for('classroom_bp.classrooms') }}" class="btn btn-secondary">Back to Classrooms</a>
 </div>

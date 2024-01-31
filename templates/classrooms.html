@@ -2,39 +2,47 @@
 
 {% block content %}
 <style>
-
   .classroom-name-link:hover {
-      color: #000; 
-      text-decoration: underline; 
+    color: #000;
+    text-decoration: underline;
   }
-  </style>
-<div class="container mt-4">
-  <h2>Classrooms</h2>
-  <table class="table table-striped mt-3">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Year</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for classroom in classrooms %}
-      <tr>
-        <td><a href="{{ url_for('classroom_bp.classroom_details', classroom_id=classroom.id) }}" class="classroom-name-link" style="color: darkslategray;">{{ classroom.name }}</a></td>
-        <td>{{ classroom.year }}</td>
-        <td>
-       
-          <a href="/edit_classroom/{{ classroom.id }}" class="btn btn-primary btn-sm">Edit</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  
+</style>
+<div class="container mt-5">
+<div class="card">
+  <div class="card-body">
+    <div class="container mt-4">
+      <h2>Classrooms</h2>
+      <table class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Year</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for classroom in classrooms %}
+          <tr>
+            <td><a href="{{ url_for('classroom_bp.classroom_details', classroom_id=classroom.id) }}"
+                class="classroom-name-link" style="color: darkslategray;">{{ classroom.name }}</a></td>
+            <td>{{ classroom.year }}</td>
+            <td>
 
-  <a href="{{ url_for('classroom_bp.create_classroom') }}" class="btn btn-success btn-lg">
-    <i class="bi bi-plus-lg"></i> Add New Classroom
-  </a>
+              <a href="/edit_classroom/{{ classroom.id }}" class="btn btn-primary btn-sm">Edit</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="container mt-4">
+        <a href="{{ url_for('classroom_bp.create_classroom') }}" class="btn btn-success btn-lg">
+          <i class="bi bi-plus-lg"></i> Add New Classroom
+        </a>
+      </div>
+
+    
+    </div>
+  </div>
+</div>
 </div>
 {% endblock %}

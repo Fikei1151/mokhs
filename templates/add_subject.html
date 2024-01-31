@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Add a New Subject to Classroom: {{ classroom.name }}</h2>
+    <form action="{{ url_for('classroom_bp.add_subject', classroom_id=classroom_id) }}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Subject Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="credit_units" class="form-label">Credit Units</label>
+            <input type="number" class="form-control" id="credit_units" name="credit_units" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Subject</button>
+    </form>
+</div>
+{% endblock %}

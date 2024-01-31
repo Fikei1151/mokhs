@@ -93,3 +93,32 @@ def remove_student(classroom_id, student_id):
     else:
         flash('Student not found in this classroom', 'danger')
     return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
+
+
+@classroom_bp.route('/classroom/<int:classroom_id>/add_subject', methods=['GET', 'POST'])
+@login_required
+def add_subject(classroom_id):
+    classroom = Classroom.query.get_or_404(classroom_id)
+    if request.method == 'POST':
+        # Process form data and create a new Subject
+        name = request.form.get('name')
+        credit_units = request.form.get('credit_units')
+        description = request.form.get('description')
+        new_subject = Subject(name=name, credit_units=credit_units, description=description, classroom_id=classroom_id)
+        db.session.add(new_subject)
+        db.session.commit()
+        flash('Subject added successfully', 'success')
+        return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
+    return render_template('add_subject.html', classroom_id=classroom_id, classroom=classroom)
+
+@classroom_bp.route('/classroom/<int:classroom_id>/remove_subject/<int:subject_id>', methods=['POST'])
+@login_required
+def remove_subject(classroom_id, subject_id):
+    subject_to_remove = Subject.query.filter_by(id=subject_id, classroom_id=classroom_id).first()
+    if subject_to_remove:
+        db.session.delete(subject_to_remove)
+        db.session.commit()
+        flash('Subject removed successfully', 'success')
+    else:
+        flash('Subject not found in this classroom', 'danger')
+    return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
