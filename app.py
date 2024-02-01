@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
-from models import db, User,Classroom
+from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user,current_user
-from werkzeug.utils import secure_filename
 from PIL import Image
 from forms import EditProfileForm
 import os

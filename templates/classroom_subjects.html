@@ -23,12 +23,13 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Enter Grades</a>
+                            <a class="dropdown-item" href="{{ url_for('grades_bp.enter_grades', classroom_id=classroom.id, subject_id=subject.id) }}">Enter Grades</a>
                             <a class="dropdown-item" href="#">More Actions</a>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
         {% endfor %}
     </div>

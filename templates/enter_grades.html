@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Enter Grades for {{ subject.name }} in {{ classroom.name }}</h2>
+    <form action="" method="POST">
+        {% for student in students %}
+        <div class="mb-3">
+            <label for="grade_{{ student.id }}" class="form-label">{{ student.first_name }} {{ student.last_name }}</label>
+            <input type="text" class="form-control" id="grade_{{ student.id }}" name="grade_{{ student.id }}" placeholder="Enter grade">
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit Grades</button>
+    </form>
+</div>
+{% endblock %}

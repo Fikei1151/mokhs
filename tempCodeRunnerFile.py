@@ -1,1 +1,2 @@
-classrooms
+
+from PIL import Image
