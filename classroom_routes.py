@@ -122,3 +122,10 @@ def remove_subject(classroom_id, subject_id):
     else:
         flash('Subject not found in this classroom', 'danger')
     return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
+
+@classroom_bp.route('/classroom/<int:classroom_id>/subjects')
+@login_required
+def classroom_subjects(classroom_id):
+    classroom = Classroom.query.get_or_404(classroom_id)
+    subjects = Subject.query.filter_by(classroom_id=classroom_id).all()
+    return render_template('classroom_subjects.html', classroom=classroom, subjects=subjects)

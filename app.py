@@ -9,11 +9,13 @@ from PIL import Image
 from forms import EditProfileForm
 import os
 from classroom_routes import classroom_bp
+from grades_routes import grades_bp
 from flask_migrate import Migrate
 
 
 app = Flask(__name__)
 app.register_blueprint(classroom_bp)
+app.register_blueprint(grades_bp)
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 login_manager = LoginManager(app)
@@ -51,7 +53,7 @@ def register():
         gender = request.form.get('gender')
         email = request.form.get('email')
         password = request.form.get('password')
-        id_card = request.form.get('id_card')  # รับข้อมูล id_card
+        id_card = request.form.get('id_card')  
         account_type = request.form.get('account_type')
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
