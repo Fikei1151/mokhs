@@ -2,14 +2,28 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Enter Grades for {{ subject.name }} in {{ classroom.name }} </h2>
-    <form action="" method="POST">
-        {% for student in students %}
-        <div class="mb-3">
-            <label for="grade_{{ student.id }}" class="form-label">{{ student.first_name }} {{ student.last_name }} </label>
-            <input type="text" class="form-control" id="grade_{{ student.id }}" name="grade_{{ student.id }}" placeholder="Enter grade">
-        </div>
-        {% endfor %}
+    <h2>Enter Grades for {{ subject.name }} in {{ classroom.name }}</h2>
+    <form action="{{ url_for('grades_bp.enter_grades', classroom_id=classroom.id, subject_id=subject.id) }}" method="POST">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Current Grade</th>
+                    <th>New Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>{{ grades_dict[student.id] }}</td>
+                    <td>
+                        <input type="text" class="form-control" name="grade_{{ student.id }}" placeholder="Enter grade" value="{{ grades_dict[student.id] }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <button type="submit" class="btn btn-primary">Submit Grades</button>
     </form>
 </div>
