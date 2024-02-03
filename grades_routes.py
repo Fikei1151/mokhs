@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, url_for, render_template, flash
-from models import db, Grade, Student, Subject,Classroom 
+from models import db, Grade, Student, Subject,Classroom,User
 from flask_login import login_required
 grades_bp = Blueprint('grades_bp', __name__, template_folder='templates')
 
@@ -8,7 +8,7 @@ grades_bp = Blueprint('grades_bp', __name__, template_folder='templates')
 def enter_grades(classroom_id, subject_id):
     classroom = Classroom.query.get_or_404(classroom_id)
     subject = Subject.query.get_or_404(subject_id)
-    students = Student.query.filter_by(classroom_id=classroom_id).all()
+    students = db.session.query(User).join(Student, Student.user_id == User.id).filter(Student.classroom_id == classroom_id).all()
 
     if request.method == 'POST':
         # Process form submission and update grades
