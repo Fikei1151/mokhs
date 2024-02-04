@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Grades for {{ user.first_name }} {{ user.last_name }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Credit Units</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject_name, credit_units, grade_value in grades_details %}
+            <tr>
+                <td>{{ subject_name }}</td>
+                <td>{{ credit_units }}</td>
+                <td>{{ grade_value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

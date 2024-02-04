@@ -34,7 +34,9 @@
             <div class="col d-flex justify-content-between">
               <button class="btn btn-outline-dark flex-grow-1 mx-1">
                 <i class="bx bx-book" style="font-size: 1.5em;"></i>
-                <div style="font-size: 0.8em;">ผลการเรียน</div>
+                <a href="{{ url_for('grades_bp.user_grades', user_id=current_user.id) }}" style="font-size: 0.8em;">ผลการเรียน</a>
+                
+
               </button>
               <button class="btn btn-outline-dark flex-grow-1 mx-1">
                 <i class="bx bx-calendar" style="font-size: 1.5em;"></i>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Access Denied</h2>
+    <p>You are logged in as {{ user.account_type }}. This page is accessible to students only.</p>
+    <button onclick="history.back()" class="btn btn-primary">Go Back</button>
+</div>
+{% endblock %}

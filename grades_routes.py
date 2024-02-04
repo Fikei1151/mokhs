@@ -33,3 +33,16 @@ def enter_grades(classroom_id, subject_id):
                 grades_dict[student.id] = 'null'
 
     return render_template('enter_grades.html', classroom=classroom, subject=subject, students=students, grades_dict=grades_dict)
+
+@grades_bp.route('/user/<int:user_id>/grades')
+@login_required
+def user_grades(user_id):
+    user = User.query.get_or_404(user_id)
+    if user.account_type == 'student':
+        grades_details = db.session.query(Subject.name, Subject.credit_units, Grade.grade_value)\
+                                   .join(Grade, Grade.subject_id == Subject.id)\
+                                   .filter(Grade.student_id == user_id)\
+                                   .all()
+        return render_template('student_grades.html', grades_details=grades_details, user=user)
+    else:
+        return render_template('access_denied.html', user=user)
