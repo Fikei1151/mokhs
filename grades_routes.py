@@ -39,10 +39,20 @@ def enter_grades(classroom_id, subject_id):
 def user_grades(user_id):
     user = User.query.get_or_404(user_id)
     if user.account_type == 'student':
-        grades_details = db.session.query(Subject.name, Subject.credit_units, Grade.grade_value)\
-                                   .join(Grade, Grade.subject_id == Subject.id)\
-                                   .filter(Grade.student_id == user_id)\
-                                   .all()
+        # Fetch student's classroom subjects
+        classroom_id = Student.query.filter_by(user_id=user_id).first().classroom_id
+        subjects = Subject.query.filter_by(classroom_id=classroom_id).all()
+
+        # Prepare grades details, including subjects without grades
+        grades_details = []
+        for subject in subjects:
+            grade = Grade.query.filter_by(student_id=user_id, subject_id=subject.id).first()
+            if grade:
+                grades_details.append((subject.name, subject.credit_units, grade.grade_value))
+            else:
+                grades_details.append((subject.name, subject.credit_units, 'null'))
+
         return render_template('student_grades.html', grades_details=grades_details, user=user)
     else:
+        # Display an alert modal for non-students
         return render_template('access_denied.html', user=user)

@@ -8,13 +8,12 @@
         <div class="d-flex align-items-end row">
           <div class="col-sm-7">
             <div class="card-body">
-              <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
+              <h5 class="card-title text-primary">Mokh  🎉</h5>
               <p class="mb-4">
-                You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                your profile.
+               ระบบจัดการโรงเรียน
               </p>
 
-              <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+            
             </div>
           </div>
           <div class="col-sm-5 text-center text-sm-left">
@@ -32,7 +31,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col d-flex justify-content-between">
-              <button class="btn btn-outline-dark flex-grow-1 mx-1">
+              <button class="btn btn-outline-dark flex-grow-1 mx-1" href="{{ url_for('grades_bp.user_grades', user_id=current_user.id) }}" >
                 <i class="bx bx-book" style="font-size: 1.5em;"></i>
                 <a href="{{ url_for('grades_bp.user_grades', user_id=current_user.id) }}" style="font-size: 0.8em;">ผลการเรียน</a>
                 

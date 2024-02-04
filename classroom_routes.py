@@ -13,7 +13,7 @@ classroom_bp = Blueprint('classroom_bp', __name__)
 @login_required
 def classrooms():
     all_classrooms = Classroom.query.all()
-    return render_template('classrooms.html', classrooms=all_classrooms)
+    return render_template('classrooms_all.html', classrooms=all_classrooms)
 
 @classroom_bp.route('/create_classroom', methods=['GET', 'POST'])
 @login_required
