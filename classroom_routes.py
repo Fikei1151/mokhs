@@ -130,18 +130,18 @@ def classroom_subjects(classroom_id):
     subjects = Subject.query.filter_by(classroom_id=classroom_id).all()
     return render_template('classroom_subjects.html', classroom=classroom, subjects=subjects)
 
-# @classroom_bp.route('/user/<int:user_id>/classroom_students')
-# @login_required
-# def classroom_students(user_id):
-#     user = User.query.get_or_404(user_id)
-#     student_info = Student.query.filter_by(user_id=user_id).first()
+@classroom_bp.route('/user/<int:user_id>/classroom_students')
+@login_required
+def classroom_students(user_id):
+    user = User.query.get_or_404(user_id)
+    student_info = Student.query.filter_by(user_id=user_id).first()
 
-#     if student_info:
-#         classroom_id = student_info.classroom_id
-#         students = Student.query.filter_by(classroom_id=classroom_id).all()
-#         return render_template('classroom_students.html', students=students, user=user)
-#     else:
-#         return "Access restricted to students.", 403
+    if student_info:
+        classroom_id = student_info.classroom_id
+        students = Student.query.filter_by(classroom_id=classroom_id).all()
+        return render_template('classroom_students.html', students=students, user=user)
+    else:
+        return "Access restricted to students.", 403
 
 # @classroom_bp.route('/user_classroom_details')
 # @login_required
