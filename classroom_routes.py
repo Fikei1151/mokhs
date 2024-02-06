@@ -3,7 +3,7 @@ from flask import  render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from models import db,Classroom,Student,Subject,User
 
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager, login_required,current_user
 
 
 
@@ -129,3 +129,28 @@ def classroom_subjects(classroom_id):
     classroom = Classroom.query.get_or_404(classroom_id)
     subjects = Subject.query.filter_by(classroom_id=classroom_id).all()
     return render_template('classroom_subjects.html', classroom=classroom, subjects=subjects)
+
+# @classroom_bp.route('/user/<int:user_id>/classroom_students')
+# @login_required
+# def classroom_students(user_id):
+#     user = User.query.get_or_404(user_id)
+#     student_info = Student.query.filter_by(user_id=user_id).first()
+
+#     if student_info:
+#         classroom_id = student_info.classroom_id
+#         students = Student.query.filter_by(classroom_id=classroom_id).all()
+#         return render_template('classroom_students.html', students=students, user=user)
+#     else:
+#         return "Access restricted to students.", 403
+
+# @classroom_bp.route('/user_classroom_details')
+# @login_required
+# def classroom_students():
+#     student_info = Student.query.filter_by(user_id=current_user.id).first()
+    
+#     if student_info:
+#         classroom = Classroom.query.get_or_404(student_info.classroom_id)
+#         students = Student.query.filter_by(classroom_id=classroom.id).all()
+#         return render_template('classroom_students.html', classroom=classroom, students=students)
+#     else:
+#         return "User is not assigned to any classroom.", 403

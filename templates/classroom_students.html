@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Students in Classroom: {{ classroom.name }}</h2>
+    <ul>
+        {% for student in students %}
+        <li>{{ student.user.first_name }} {{ student.user.last_name }}</li>
+        {% else %}
+        <li>No students found in this classroom.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

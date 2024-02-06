@@ -32,6 +32,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+@app.context_processor
+def inject_user():
+    if current_user.is_authenticated:
+        return {'user': current_user}
+    return {}
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -45,7 +50,7 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # รับข้อมูลจากฟอร์ม
+
         username = request.form.get('username')
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')

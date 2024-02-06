@@ -147,7 +147,9 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{ url_for('classroom_bp.classrooms') }}" class="menu-link">
+                  <a href="{{ url_for('classroom_bp.classroom_students', user_id=current_user.id) }}" class="menu-link">
+
+
                     <div data-i18n="Without menu">ห้องเรียน</div>
                   </a>
                 </li>

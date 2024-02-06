@@ -42,12 +42,10 @@ class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
-    classroom_id = db.Column(db.Integer, db.ForeignKey('classroom.id'), nullable=False)  # New line to link grade to a specific classroom
     grade_value = db.Column(db.String(10))
 
     student = db.relationship('Student', backref=db.backref('grades', lazy=True))
     subject = db.relationship('Subject', backref=db.backref('grades', lazy=True))
-    classroom = db.relationship('Classroom', backref=db.backref('grades', lazy=True))  # New line to establish relationship with Classroom
 
     def __repr__(self):
-        return f'<Grade {self.grade_value} for Student ID {self.student_id} in Subject ID {self.subject_id} in Classroom ID {self.classroom_id}>'
+        return f'<Grade {self.grade_value} for Student ID {self.student_id} in Subject ID {self.subject_id}>'
