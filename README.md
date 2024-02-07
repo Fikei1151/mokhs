@@ -1,10 +1,10 @@
 # mokhs
 fikree hajiyusof
 6410110697
-web school  grade
+<br>web school  grade
 ระบบจัดการเกรด 
 มีผู้ใช้ 2 Type
-| บัญชีนักเรียน|
+<br>| บัญชีนักเรียน|
 | usrrname | password |   
 |----------|----------|
 | std01    | 1        | 
