@@ -1,6 +1,6 @@
 # mokhs
 fikree hajiyusof
-ุ6410110697
+6410110697
 web school  grade
 ระบบจัดการเกรด 
 มีผู้ใช้ 2 Type
