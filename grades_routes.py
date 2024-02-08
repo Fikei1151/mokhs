@@ -10,6 +10,7 @@ def enter_grades(classroom_id, subject_id):
     classroom = Classroom.query.get_or_404(classroom_id)
     subject = Subject.query.get_or_404(subject_id)
     students = db.session.query(User).join(Student, Student.user_id == User.id).filter(Student.classroom_id == classroom_id).all()
+    grade = Grade.query.join(Student).filter(Student.classroom_id == classroom_id).first()
 
     grades_dict = {}
     if request.method == 'POST':

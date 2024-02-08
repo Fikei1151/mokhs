@@ -43,7 +43,7 @@ class Grade(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
     grade_value = db.Column(db.String(10))
-
+    classroom_id = db.Column(db.Integer, db.ForeignKey('classroom.id'))
     student = db.relationship('Student', backref=db.backref('grades', lazy=True))
     subject = db.relationship('Subject', backref=db.backref('grades', lazy=True))
 

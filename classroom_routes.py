@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import  render_template, request, redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
-from models import db,Classroom,Student,Subject,User
+from models import db,Classroom,Student,Subject,User,Grade
 
 from flask_login import LoginManager, login_required,current_user
 
@@ -85,15 +85,24 @@ def add_student_to_classroom(classroom_id, user_id):
 @classroom_bp.route('/classroom/<int:classroom_id>/remove_student/<int:student_id>', methods=['POST'])
 @login_required
 def remove_student(classroom_id, student_id):
-    student_to_remove = Student.query.filter_by(user_id=student_id, classroom_id=classroom_id).first()
+
+    student_to_remove = Student.query.filter_by(id=student_id, classroom_id=classroom_id).first()
+
     if student_to_remove:
+   
+        Grade.query.filter_by(student_id=student_id).delete()
+        
         db.session.delete(student_to_remove)
+        user_to_remove = User.query.get(student_to_remove.user_id)
+        if user_to_remove:
+            db.session.delete(user_to_remove)
         db.session.commit()
-        flash('Student removed successfully', 'success')
+
+        flash('Student, their grades, and user account removed successfully', 'success')
     else:
         flash('Student not found in this classroom', 'danger')
-    return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
 
+    return redirect(url_for('classroom_bp.classroom_details', classroom_id=classroom_id))
 
 @classroom_bp.route('/classroom/<int:classroom_id>/add_subject', methods=['GET', 'POST'])
 @login_required
